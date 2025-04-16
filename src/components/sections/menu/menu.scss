@@ -2,45 +2,51 @@
 @use '@/styles/mixins' as *;
 
 .menu-section {
-  & {
-    min-height: 100vh;
-    background-color: $background-color;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: clamp(1rem, 2vw, 2rem);
-  }
+  min-height: 100vh;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(1rem, 2vw, 2rem);
 
   .meal-grid-container {
     @include responsive-container;
-
-    & {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
   }
 
   .meals-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1rem;
     width: 100%;
     margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      padding: 0 0.3rem;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.4rem;
+      padding: 0 0.2rem;
+    }
   }
 
   .show-more-button {
-    & {
-      margin-top: 1rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: none;
-      animation: bounce 1.5s infinite;
-      z-index: 10;
-    }
+    margin-top: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+    animation: bounce 1.5s infinite;
+    z-index: 10;
 
     .arrow-icon {
       color: white;

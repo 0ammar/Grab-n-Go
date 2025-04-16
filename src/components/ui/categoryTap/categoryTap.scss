@@ -10,11 +10,20 @@
   margin: 30px auto 15px;
   padding: 0;
   max-width: 1000px;
-  
 
   @media (max-width: 1024px) {
+    gap: 0.6rem;
+    padding: 0.8rem 0;
+  }
+
+  @media (max-width: 768px) {
+    gap: 0.4rem;
+    padding: 0.6rem 0.4rem;
+  }
+
+  @media (max-width: 480px) {
     gap: 0.3rem;
-    padding: .8rem 0rem;
+    padding: 0.5rem 0.2rem;
   }
 }
 
@@ -40,16 +49,14 @@
     color: #000;
     border-color: $primary-color;
   }
-}
 
-@media (max-width: 768px) {
-  .category-tap-wrapper {
-    gap: 0.5rem;
-    padding: 1rem;
+  @media (max-width: 768px) {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
   }
 
-  .category-tap {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.9rem;
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
   }
 }
