@@ -20,7 +20,6 @@
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10000;
 
     @media (max-width: 1024px) {
       top: -20px;
@@ -30,7 +29,7 @@
       width: 250px;
 
       @media (max-width: 1024px) {
-        width: 330px;
+        width: 300px;
 
       }
     }
@@ -70,7 +69,7 @@
       margin-top: 0;
 
       @media (max-width: 1024px) {
-      margin-top: 30px;
+      margin-top: 50px;
       }
       
     }
