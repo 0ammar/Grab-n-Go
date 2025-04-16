@@ -1,0 +1,36 @@
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @mixin text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  @mixin responsive-container {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  
+    @media (min-width: 768px) {
+      max-width: 750px;
+    }
+  
+    @media (min-width: 992px) {
+      max-width: 970px;
+    }
+  
+    @media (min-width: 1200px) {
+      max-width: 1170px;
+    }
+  }
+  
+  @mixin transition($target: all, $speed: 0.3s) {
+    transition: $target $speed ease-in-out;
+  }
+  

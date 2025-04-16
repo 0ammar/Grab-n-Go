@@ -1,0 +1,49 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.category-tap-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 30px auto 15px;
+  padding: 0;
+  max-width: 1000px;
+}
+
+.category-tap {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text-color;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  text-align: center;
+  @include transition();
+
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  &.active {
+    background-color: $primary-color;
+    color: #000;
+    border-color: $primary-color;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-tap-wrapper {
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .category-tap {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+  }
+}

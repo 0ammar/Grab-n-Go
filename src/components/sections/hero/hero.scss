@@ -1,0 +1,107 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: $background-color;
+  overflow: hidden;
+  position: relative;
+
+  .hero-logo-floating {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+
+    img {
+      width: 250px;
+
+      @media (max-width: 768px) {
+        width: 200px;
+      }
+    }
+  }
+
+  .hero-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 10rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      text-align: center;
+      margin-top: 6rem;
+    }
+  }
+
+  .hero-content {
+    color: $text-color;
+    max-width: 400px;
+
+    @media (max-width: 1025px) {
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: $primary-color;
+      text-shadow: $text-shadow;
+      margin-bottom: 1rem;
+      margin-top: 0;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+      color: $text-color;
+
+      @media (max-width: 1025px) {
+        font-size: .9rem;
+        letter-spacing: 1px;
+      }
+    }
+
+    .hero-button {
+      background-color: $primary-color;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: $radius-md;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      @include transition(all, 0.3s);
+
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
+
+  .hero-image {
+    flex: 1;
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px $primary-color);
+    margin-top: 20px;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+}

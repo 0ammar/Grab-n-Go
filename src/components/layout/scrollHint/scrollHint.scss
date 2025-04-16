@@ -1,0 +1,73 @@
+@use "@/styles/variables" as *;
+
+.scroll-label-fixed {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 1000;
+  pointer-events: none;
+  font-family: 'Josefin Sans', sans-serif;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+.scroll-track {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  z-index: 9999;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .scroll-line {
+    height: 100%;
+    width: 0%;
+    background-color: $hover-color;
+    animation: fillDrain 8s ease-in-out infinite;
+    box-shadow:
+      0 0 20px 5px $hover-color,
+      0 0 40px 10px $hover-color,
+      0 0 60px 15px $hover-color,
+      0 0 100px 20px $hover-color,
+      0 0 150px 30px $hover-color;
+
+    &.left {
+      transform-origin: right;
+    }
+
+    &.right {
+      transform-origin: left;
+    }
+  }
+
+  &.scrolling .scroll-line {
+    animation: none !important;
+  }
+}
+
+@keyframes fillDrain {
+  0% {
+    width: 0%;
+    opacity: 0.5;
+  }
+  50% {
+    width: 50%;
+    opacity: 1;
+  }
+  100% {
+    width: 0%;
+    opacity: 0.5;
+  }
+}
