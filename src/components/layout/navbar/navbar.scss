@@ -12,10 +12,6 @@
   width: 100%;
   z-index: 1000;
   backdrop-filter: blur(6px);
-
-  @media (max-width: 1024px) {
-    padding: 0.1rem 1rem;
-  }
 }
 
 .social-section {
@@ -133,6 +129,10 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
+
+  @media (max-width: 1024px) {
+    padding: 10px 0;
+  }
 
   .circle-icon {
     font-size: 1.4rem;
