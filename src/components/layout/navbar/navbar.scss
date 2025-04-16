@@ -12,6 +12,10 @@
   width: 100%;
   z-index: 1000;
   backdrop-filter: blur(6px);
+
+  @media (max-width: 1024px) {
+    padding: 0.1rem 1rem;
+  }
 }
 
 .social-section {
