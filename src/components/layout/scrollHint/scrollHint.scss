@@ -1,5 +1,11 @@
 @use "@/styles/variables" as *;
 
+.scroll-hint-wrapper{
+  @media(max-width: 1024px){
+    display: none;
+  }
+}
+
 .scroll-label-fixed {
   position: fixed;
   bottom: 10px;
