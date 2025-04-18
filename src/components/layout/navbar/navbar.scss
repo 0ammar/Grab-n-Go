@@ -68,9 +68,20 @@
     pointer-events: none;
     transform: translateY(-10px);
     transition: all 0.4s ease;
+    z-index: 9999999;
+
     @media (max-width: 1024px) {
       left: -10px;
       padding: .5rem;
+
+      .icon {
+        font-size: 1rem;
+        padding: 0.3rem 0.6rem;
+
+        &::after {
+          font-size: 0.75rem;
+        }
+      }
     }
 
     &.open {
@@ -132,7 +143,9 @@
   gap: 0.6rem;
 
   @media (max-width: 1024px) {
-    padding: 5px 0;
+    .circle-icon {
+      font-size: 1.1rem;
+    }
   }
 
   .circle-icon {
@@ -159,5 +172,33 @@
 .hide-on-mobile {
   @media (max-width: 1024px) {
     display: none !important;
+  }
+}
+
+.lang-menu {
+  position: absolute;
+  top: 60px;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  padding: 0.3rem;
+
+  .lang-option {
+    color: white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      color: black;
+    }
   }
 }

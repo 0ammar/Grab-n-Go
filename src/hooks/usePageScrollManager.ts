@@ -27,6 +27,9 @@ export const usePageScrollManager = (
       if (activeSection === menuSectionIndex) {
         if (e.deltaY > 0 && activeTab < tabCount - 1) {
           setActiveTab((prev) => prev + 1);
+        } else if (e.deltaY > 0 && activeTab === tabCount - 1) {
+          scrollToSection(menuSectionIndex + 1);
+          setActiveSection(menuSectionIndex + 1);
         } else if (e.deltaY < 0) {
           if (activeTab > 0) {
             setActiveTab((prev) => prev - 1);

@@ -1,0 +1,100 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  label {
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-bottom: -0.4rem;
+  }
+
+  textarea {
+    height: 150px;
+  }
+
+  input,
+  textarea {
+    background: #1a1a1a;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    color: #fff;
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+
+  button {
+    background-color: $primary-color;
+    color: #000;
+    font-weight: bold;
+    border-radius: $radius-md;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(255, 215, 0, 0.15);
+    @include transition(background-color);
+    margin-top: 10px;
+
+    &:hover {
+      background-color: $hover-color;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+.snackbar {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(20, 20, 20, 0.9);
+  color: $primary-color;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.25);
+  z-index: 9999;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 776px) {
+  .contact-form {
+    gap: 0.8rem;
+
+    label {
+      font-size: 0.8rem;
+      margin-bottom: -0.3rem;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    input,
+    textarea {
+      padding: 0.5rem 0.9rem;
+      font-size: 0.9rem;
+    }
+
+    button {
+      padding: 0.3rem 1rem;
+      font-size: 0.9rem;
+      margin-top: 0;
+    }
+  }
+
+  .snackbar {
+    font-size: 0.6rem;
+    padding: 0.7rem ;
+  }
+}
