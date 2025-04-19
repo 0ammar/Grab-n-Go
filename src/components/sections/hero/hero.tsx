@@ -44,6 +44,11 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
           <button className="hero-button" onClick={onScrollToMenu}>
             Explore Menu
           </button>
+
+          <div className="swipe-hint">
+            <div className="animated-arrow" />
+            <p className="hint-text">Swap to right</p>
+          </div>
         </motion.div>
 
         <motion.img

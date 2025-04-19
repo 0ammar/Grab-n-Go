@@ -9,6 +9,9 @@ import product4 from '@/assets/images/product-4.png';
 import product5 from '@/assets/images/product-5.png';
 import product6 from '@/assets/images/product-6.png';
 import product7 from '@/assets/images/product-7.png';
+import product8 from '@/assets/images/product-8.png';
+import product9 from '@/assets/images/product-9.png';
+import product10 from '@/assets/images/product-10.png';
 
 // 🗂️ Categories
 export const menuCategories: MenuCategory[] = [
@@ -33,7 +36,7 @@ export const meals: Meal[] = [
     name: `Broasted Meal ${i + 1}`,
     description: 'Golden crispy chicken with fries and coleslaw.',
     price: 15 + i,
-    image: product4,
+    image: product1,
     categoryId: 'broasted',
   })),
 
@@ -43,7 +46,7 @@ export const meals: Meal[] = [
     name: `Wrap ${i + 1}`,
     description: 'Delicious wrap with fresh ingredients.',
     price: 7 + i,
-    image: product6,
+    image: product2,
     categoryId: 'wraps',
   })),
 
@@ -53,7 +56,7 @@ export const meals: Meal[] = [
     name: `Side Dish ${i + 1}`,
     description: 'Tasty side to complement your meal.',
     price: 3 + i,
-    image: product1,
+    image: product3,
     categoryId: 'sides',
   })),
 
@@ -63,7 +66,7 @@ export const meals: Meal[] = [
     name: `Drink ${i + 1}`,
     description: 'Refreshing beverage to enjoy.',
     price: 2 + i,
-    image: product2,
+    image: product4,
     categoryId: 'drinks',
   })),
 
@@ -73,7 +76,7 @@ export const meals: Meal[] = [
     name: `Dessert ${i + 1}`,
     description: 'Sweet treat to finish your meal.',
     price: 4 + i,
-    image: product4,
+    image: product5,
     categoryId: 'desserts',
   })),
 
@@ -83,7 +86,7 @@ export const meals: Meal[] = [
     name: `Pasta Dish ${i + 1}`,
     description: 'Creamy or red sauce pasta variety.',
     price: 9 + i,
-    image: product1,
+    image: product6,
     categoryId: 'pasta',
   })),
 
@@ -93,7 +96,7 @@ export const meals: Meal[] = [
     name: `Burger ${i + 1}`,
     description: 'Juicy burger with toppings.',
     price: 10 + i,
-    image: product5,
+    image: product7,
     categoryId: 'burgers',
   })),
 
@@ -103,7 +106,7 @@ export const meals: Meal[] = [
     name: `Grill Plate ${i + 1}`,
     description: 'Grilled meats and veggies.',
     price: 12 + i,
-    image: product3,
+    image: product8,
     categoryId: 'grill',
   })),
 
@@ -113,7 +116,7 @@ export const meals: Meal[] = [
     name: `Kids Meal ${i + 1}`,
     description: 'A small portion perfect for kids, includes a toy!',
     price: 9 + i,
-    image: product7,
+    image: product9,
     categoryId: 'kids',
   })),
 
@@ -123,7 +126,7 @@ export const meals: Meal[] = [
     name: `Meal Box ${i + 1}`,
     description: 'Combo of chicken, burger, fries and a drink.',
     price: 18 + i,
-    image: product3,
+    image: product10,
     categoryId: 'boxes',
   })),
 
@@ -133,7 +136,7 @@ export const meals: Meal[] = [
     name: `Special Offer ${i + 1}`,
     description: 'Limited-time combo deal with great value.',
     price: 20 + i * 2,
-    image: product6,
+    image: product1,
     categoryId: 'offers',
   })),
 ];
