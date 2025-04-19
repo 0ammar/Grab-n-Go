@@ -1,8 +1,8 @@
 import './hero.scss';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import clipImage from '@/assets/images/hero-clip.png';
-import logo from '@/assets/images/logo.png'
+import logo from '@/assets/images/logo.png';
 
 interface HeroProps {
   onScrollToMenu: () => void;
@@ -10,14 +10,21 @@ interface HeroProps {
 
 const Hero = ({ onScrollToMenu }: HeroProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
-
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+
+  const [showLogoAnimation, setShowLogoAnimation] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLogoAnimation(false);
+    }, 6000); // duration of the animation
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <motion.section
@@ -27,7 +34,15 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
     >
       <div className="hero-container">
         <div className="hero-logo-floating">
-          <img src={logo} alt="Logo" />
+          <motion.img
+            src={logo}
+            alt="Logo"
+            className={showLogoAnimation ? 'logo-animate' : ''}
+            initial={{ y: -150, scale: 0.5, opacity: 0 }}
+            animate={{ y: 0, scale: 1.2, opacity: 1, rotate: 360 }}
+            transition={{ duration: 1.6, ease: 'easeInOut' }}
+            onAnimationComplete={() => setShowLogoAnimation(false)}
+          />
         </div>
 
         <div className="hero-content-wrapper">

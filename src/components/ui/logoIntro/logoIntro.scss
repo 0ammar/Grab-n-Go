@@ -1,0 +1,41 @@
+@use "@/styles/variables" as *;
+
+.logo-animation-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $background-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+
+  .logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    animation: dropRotateGlow 6.5s ease-in-out forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes dropRotateGlow {
+  0% {
+    transform: translateY(-100px) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(50px) scale(0.7) rotate(180deg);
+  }
+  70% {
+    transform: translateY(0px) scale(1) rotate(360deg);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
+    filter: brightness(1.4);
+    opacity: 1;
+  }
+}

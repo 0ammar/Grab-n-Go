@@ -21,14 +21,16 @@
 
   .hero-logo-floating {
     margin-top: 1rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
 
     img {
-      width: 250px;
+      width: 280px;
 
-      @media (max-width: 1024px) {
+      @media (max-width: 768px) {
         width: 300px;
+        animation: logoMobileIntro 5.5s ease-in-out forwards;
       }
     }
   }
@@ -60,7 +62,7 @@
       font-weight: bold;
       color: $primary-color;
       text-shadow: $text-shadow;
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       margin-top: 0;
     }
 
@@ -148,7 +150,7 @@
 
 @keyframes arrowEnter {
   0% {
-    transform: translateX(-40px) scale(0.6) rotate(-45deg);
+    transform: translateX(-60px) scale(0.6) rotate(-45deg);
     opacity: 0;
   }
   100% {
@@ -163,5 +165,24 @@
   }
   50% {
     transform: translateX(10px) scale(1.02) rotate(-45deg);
+  }
+}
+
+@keyframes logoMobileIntro {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.5) rotate(0deg);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(0) scale(0.9) rotate(360deg);
+  }
+  70% {
+    transform: translateY(0) scale(1.04) rotate(360deg);
+    filter: drop-shadow(0 0 4px #ffd700);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(360deg);
+    filter: drop-shadow(0 0 2.5px #ffd700);
   }
 }

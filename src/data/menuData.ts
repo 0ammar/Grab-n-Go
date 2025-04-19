@@ -3,7 +3,6 @@ import { Meal, MenuCategory } from '@/types';
 
 // 🖼️ Real Images
 import product1 from '@/assets/images/product-1.jpg';
-import product2 from '@/assets/images/product-2.png';
 import product3 from '@/assets/images/product-3.png';
 import product4 from '@/assets/images/product-4.png';
 import product5 from '@/assets/images/product-5.png';
@@ -25,7 +24,6 @@ export const menuCategories: MenuCategory[] = [
   { id: 'grill', label: 'Grill' },
   { id: 'kids', label: 'Kids' },
   { id: 'boxes', label: 'Meal Boxes' },
-  { id: 'offers', label: 'Offers' },
 ];
 
 // 🍽️ Meals
@@ -46,7 +44,7 @@ export const meals: Meal[] = [
     name: `Wrap ${i + 1}`,
     description: 'Delicious wrap with fresh ingredients.',
     price: 7 + i,
-    image: product2,
+    image: product5,
     categoryId: 'wraps',
   })),
 
@@ -128,15 +126,5 @@ export const meals: Meal[] = [
     price: 18 + i,
     image: product10,
     categoryId: 'boxes',
-  })),
-
-  // Special Offers
-  ...Array.from({ length: 17 }, (_, i) => ({
-    id: `offer${i + 1}`,
-    name: `Special Offer ${i + 1}`,
-    description: 'Limited-time combo deal with great value.',
-    price: 20 + i * 2,
-    image: product1,
-    categoryId: 'offers',
   })),
 ];

@@ -31,7 +31,7 @@
 
 .category-tap {
   position: relative;
-  padding: 0.5rem 1.2rem 0.5rem 1.8rem; // padding-left أكبر عشان نضيف الخط
+  padding: 0.5rem 1.2rem 0.5rem 1.8rem;
   font-size: 1rem;
   font-weight: 600;
   color: $text-color;
@@ -77,8 +77,8 @@
   }
 
   @media (max-width: 768px) {
-    font-size: 0.78rem;
-    padding: 0.4rem 0.5rem 0.4rem 1.4rem;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.3rem 0.3rem .8rem;
 
     &::before {
       width: 2px;
@@ -88,8 +88,8 @@
   }
 
   @media (max-width: 480px) {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.4rem 0.3rem 1.2rem;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.4rem 0.3rem .9rem;
 
     &::before {
       width: 1px;
