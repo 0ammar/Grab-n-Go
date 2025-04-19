@@ -179,10 +179,10 @@
   }
   70% {
     transform: translateY(0) scale(1.04) rotate(360deg);
-    filter: drop-shadow(0 0 4px #ffd700);
+    filter: drop-shadow(0 0 3px #ffd700);
   }
   100% {
     transform: translateY(0) scale(1) rotate(360deg);
-    filter: drop-shadow(0 0 2.5px #ffd700);
+    filter: drop-shadow(0 0 2px #ffd700);
   }
 }

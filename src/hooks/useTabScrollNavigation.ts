@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { menuCategories } from '@/data/menuData';
 
 export const useTabScrollNavigation = (
@@ -7,6 +7,8 @@ export const useTabScrollNavigation = (
   setActiveTab: (index: number) => void,
   goBack: () => void
 ) => {
+  const isSwiping = useRef(false);
+
   const goToNextTab = () => {
     if (activeTab < menuCategories.length - 1) {
       setActiveTab(activeTab + 1);
@@ -22,9 +24,20 @@ export const useTabScrollNavigation = (
   };
 
   const handleSwipe = (_e: any, info: { offset: { x: number } }) => {
+    if (isSwiping.current) return;
     const swipeX = info.offset.x;
-    if (swipeX < -100) goToNextTab();
-    else if (swipeX > 100) goToPreviousTab();
+
+    if (swipeX < -180) {
+      isSwiping.current = true;
+      goToNextTab();
+    } else if (swipeX > 180) {
+      isSwiping.current = true;
+      goToPreviousTab();
+    }
+
+    setTimeout(() => {
+      isSwiping.current = false;
+    }, 800); 
   };
 
   useEffect(() => {

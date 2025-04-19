@@ -28,6 +28,7 @@ export default function App() {
   // Swipe handler (left/right)
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const isSwiping = useRef(false);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -39,29 +40,34 @@ export default function App() {
 
   const handleTouchEnd = () => {
     const diff = touchStartX.current - touchEndX.current;
-    const threshold = 50;
+    const threshold = 100;
 
-    if (Math.abs(diff) > threshold) {
-      if (diff > 0) {
-        // Swipe left
-        if (activeSection === menuSectionIndex && activeTab < tabCount - 1) {
-          setActiveTab(activeTab + 1);
-        } else if (activeSection === menuSectionIndex && activeTab === tabCount - 1) {
-          setActiveSection(menuSectionIndex + 1);
-        } else if (activeSection < sectionCount - 1) {
-          setActiveSection(activeSection + 1);
-        }
-      } else {
-        // Swipe right
-        if (activeSection === menuSectionIndex && activeTab > 0) {
-          setActiveTab(activeTab - 1);
-        } else if (activeSection === menuSectionIndex && activeTab === 0) {
-          setActiveSection(menuSectionIndex - 1);
-        } else if (activeSection > 0) {
-          setActiveSection(activeSection - 1);
-        }
+    if (isSwiping.current || Math.abs(diff) < threshold) return;
+    isSwiping.current = true;
+
+    if (diff > 0) {
+      // Swipe left
+      if (activeSection === menuSectionIndex && activeTab < tabCount - 1) {
+        setActiveTab(activeTab + 1);
+      } else if (activeSection === menuSectionIndex && activeTab === tabCount - 1) {
+        setActiveSection(menuSectionIndex + 1);
+      } else if (activeSection < sectionCount - 1) {
+        setActiveSection(activeSection + 1);
+      }
+    } else {
+      // Swipe right
+      if (activeSection === menuSectionIndex && activeTab > 0) {
+        setActiveTab(activeTab - 1);
+      } else if (activeSection === menuSectionIndex && activeTab === 0) {
+        setActiveSection(menuSectionIndex - 1);
+      } else if (activeSection > 0) {
+        setActiveSection(activeSection - 1);
       }
     }
+
+    setTimeout(() => {
+      isSwiping.current = false;
+    }, 800);
   };
 
   return (
