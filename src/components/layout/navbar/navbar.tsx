@@ -1,17 +1,47 @@
 import './navbar.scss';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FaBars, FaTimes, FaShoppingCart, FaUser } from 'react-icons/fa';
 import { FiFacebook, FiInstagram, FiYoutube, FiMessageCircle, FiGlobe } from 'react-icons/fi';
 import { SiTiktok } from 'react-icons/si';
 
+import enFlag from '@/assets/images/english.png';
+import arFlag from '@/assets/images/arabic.png';
+import frFlag from '@/assets/images/french.png';
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const globeRef = useRef<HTMLDivElement>(null);
+  const langMenuRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => setMenuOpen(prev => !prev);
-  const toggleLang = () => setLangOpen(prev => !prev);
+  const toggleMenu = () => {
+    setMenuOpen(prev => {
+      if (!prev) setLangOpen(false); // اغلق منيو اللغة إذا فتحت منيو السوشال
+      return !prev;
+    });
+  };
 
+  const toggleLang = () => {
+    setLangOpen(prev => {
+      if (!prev) setMenuOpen(false); // اغلق منيو السوشال إذا فتحت منيو اللغة
+      return !prev;
+    });
+  };
 
+  useEffect(() => {
+    if (globeRef.current && langMenuRef.current) {
+      const globeRect = globeRef.current.getBoundingClientRect();
+      const isMobile = window.innerWidth <= 768;
+
+      langMenuRef.current.style.top = isMobile
+        ? `${globeRect.bottom + 44}px`
+        : `${globeRect.bottom + 6}px`;
+
+      langMenuRef.current.style.left = isMobile
+        ? `${globeRect.left + 50}px`
+        : `${globeRect.left}px`;
+    }
+  }, [langOpen]);
 
   const socialLinks = [
     { icon: <FiFacebook />, label: 'Facebook' },
@@ -21,7 +51,11 @@ const Navbar = () => {
     { icon: <FiMessageCircle />, label: 'WhatsApp' },
   ];
 
-  const languageOptions = ['EN', 'AR', 'FR'];
+  const languageOptions = [
+    { code: 'EN', label: 'English', img: enFlag },
+    { code: 'AR', label: 'العربية', img: arFlag },
+    { code: 'FR', label: 'Français', img: frFlag },
+  ];
 
   return (
     <>
@@ -31,13 +65,11 @@ const Navbar = () => {
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
 
-          <div className="lang-icon mobile-only" title="Change Language" onClick={toggleLang}>
+          <div ref={globeRef} className="lang-icon mobile-only" title="Change Language" onClick={toggleLang}>
             <FiGlobe />
           </div>
 
-          <span className="label hide-on-mobile" onClick={toggleMenu}>
-            Social Media
-          </span>
+          <span className="label hide-on-mobile" onClick={toggleMenu}>Social Media</span>
 
           <div className={`social-menu ${menuOpen ? 'open' : ''}`}>
             {socialLinks.map(({ icon, label }) => (
@@ -49,7 +81,7 @@ const Navbar = () => {
         </div>
 
         <div className="nav-icons">
-          <div className="circle-icon hide-on-mobile" title="Change Language" onClick={toggleLang}>
+          <div ref={globeRef} className="circle-icon hide-on-mobile" title="Change Language" onClick={toggleLang}>
             <FiGlobe />
           </div>
           <div className="circle-icon" title="Cart"><FaShoppingCart /></div>
@@ -58,12 +90,10 @@ const Navbar = () => {
       </nav>
 
       {langOpen && (
-        <div className="lang-menu">
-          {languageOptions.map(lang => (
-            <div key={lang} className="lang-option">
-              {lang === 'EN' && 'English'}
-              {lang === 'AR' && 'العربية'}
-              {lang === 'FR' && 'Français'}
+        <div className="lang-menu" ref={langMenuRef}>
+          {languageOptions.map(({ code, img }) => (
+            <div key={code} className="lang-option" title={code}>
+              <img src={img} alt={code} />
             </div>
           ))}
         </div>

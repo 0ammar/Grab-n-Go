@@ -18,15 +18,49 @@
   display: flex;
   align-items: center;
   position: relative;
+  gap: 1rem;
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: $primary-color;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .lang-icon {
+    font-size: 1.3rem;
+    color: $primary-color;
+    cursor: pointer;
+    transition: transform 0.4s ease, color 0.3s ease;
+
+    &:hover {
+      color: white;
+    }
+
+    &:active {
+      transform: rotate(360deg);
+    }
+
+    &.mobile-only {
+      display: none;
+
+      @media (max-width: 1024px) {
+        display: block;
+      }
+    }
+  }
 
   .label {
     font-size: 0.9rem;
     font-weight: 600;
-    margin-left: 0.75rem;
-    margin-bottom: 0.2rem;
     color: $primary-color;
     cursor: pointer;
-    transition: color 0.3s ease;
 
     &:hover {
       color: white;
@@ -36,19 +70,6 @@
       @media (max-width: 1024px) {
         display: none;
       }
-    }
-  }
-
-  .menu-toggle {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: $primary-color;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: white;
     }
   }
 
@@ -70,20 +91,6 @@
     transition: all 0.4s ease;
     z-index: 9999999;
 
-    @media (max-width: 1024px) {
-      left: -10px;
-      padding: .5rem;
-
-      .icon {
-        font-size: 1rem;
-        padding: 0.3rem 0.6rem;
-
-        &::after {
-          font-size: 0.75rem;
-        }
-      }
-    }
-
     &.open {
       opacity: 1;
       pointer-events: auto;
@@ -95,7 +102,6 @@
       font-size: 1.3rem;
       display: flex;
       align-items: center;
-      font-weight: 500;
       gap: 0.6rem;
       padding: 0.5rem 0.9rem;
       border-radius: 8px;
@@ -110,28 +116,21 @@
       &:hover {
         background-color: $primary-color;
         color: black;
-        transform: scale(1.001);
         box-shadow: 0 0 6px $hover-color;
       }
     }
-  }
 
-  .lang-icon {
-    font-size: 1.3rem;
-    color: $primary-color;
-    margin-left: 0.8rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    @media (max-width: 1024px) {
+      left: -10px;
+      padding: 0.5rem;
 
-    &:hover {
-      color: white;
-    }
+      .icon {
+        font-size: 1rem;
+        padding: 0.3rem 0.6rem;
 
-    &.mobile-only {
-      display: none;
-
-      @media (max-width: 1024px) {
-        display: block;
+        &::after {
+          font-size: 0.75rem;
+        }
       }
     }
   }
@@ -142,12 +141,6 @@
   align-items: center;
   gap: 0.6rem;
 
-  @media (max-width: 1024px) {
-    .circle-icon {
-      font-size: 1.1rem;
-    }
-  }
-
   .circle-icon {
     font-size: 1.4rem;
     background: transparent;
@@ -155,10 +148,55 @@
     padding: 0.3rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: transform 1.2s ease, color 0.7s ease;
 
     &:hover {
       color: white;
+    }
+
+    &:active {
+      transform: rotate(720deg);
+    }
+
+    @media (max-width: 1024px) {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.lang-menu {
+  position: absolute;
+  background-color: rgba(226, 223, 223, 0.668);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 0.3rem;
+  min-width: 44px;
+
+  .lang-option {
+    color: white;
+    padding: 0.4rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 50%;
+
+
+    img {
+      width: 26px;
+      height: auto;
+    }
+
+    &:hover {
+      background-color: $primary-color;
+      color: black;
+      border-radius: 50%;
     }
   }
 }
@@ -173,32 +211,4 @@
   @media (max-width: 1024px) {
     display: none !important;
   }
-}
-
-.lang-menu {
-  position: absolute;
-  top: 60px;
-  right: 1rem;
-  background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  z-index: 9999999;
-  display: flex;
-  flex-direction: column;
-  min-width: 140px;
-  padding: 0.3rem;
-
-  .lang-option {
-    color: white;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: $primary-color;
-      color: black;
-    }
-  }
-}
+} 
