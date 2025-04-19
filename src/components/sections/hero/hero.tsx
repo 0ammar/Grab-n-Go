@@ -25,40 +25,42 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
       ref={sectionRef}
       style={{ x, opacity }}
     >
-      <div className="hero-logo-floating">
-        <img src={logo} alt="Logo" />
-      </div>
+      <div className="hero-container">
+        <div className="hero-logo-floating">
+          <img src={logo} alt="Logo" />
+        </div>
 
-      <div className="hero-content-wrapper">
-        <motion.div
-          className="hero-content"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
-        >
-          <h1 className="hero-title">Grab'n Go</h1>
-          <p className="hero-description">
-            Delicious golden chicken, crispy fries, <br />
-            and fast delivery to satisfy your cravings.
-          </p>
-          <button className="hero-button" onClick={onScrollToMenu}>
-            Explore Menu
-          </button>
+        <div className="hero-content-wrapper">
+          <motion.div
+            className="hero-content"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
+          >
+            <h1 className="hero-title">Grab'n Go</h1>
+            <p className="hero-description">
+              Delicious golden chicken, crispy fries, <br />
+              and fast delivery to satisfy your cravings.
+            </p>
+            <button className="hero-button" onClick={onScrollToMenu}>
+              Explore Menu
+            </button>
 
-          <div className="swipe-hint">
-            <div className="animated-arrow" />
-            <p className="hint-text">Swap to right</p>
-          </div>
-        </motion.div>
+            <div className="swipe-hint">
+              <div className="animated-arrow" />
+              <p className="hint-text">Swap to right</p>
+            </div>
+          </motion.div>
 
-        <motion.img
-          src={clipImage}
-          alt="Hero Dish"
-          className="hero-image"
-          initial={{ x: '-100%', opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-        />
+          <motion.img
+            src={clipImage}
+            alt="Hero Dish"
+            className="hero-image"
+            initial={{ x: '-100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          />
+        </div>
       </div>
     </motion.section>
   );
