@@ -9,7 +9,7 @@ const SectionContainer = ({
 }: SectionContainerProps) => {
   const variants = {
     hidden: {
-      x: direction === 'right' ? '100%' : '-100%',
+      x: direction === 'right' ? '100%' : direction === 'left' ? '-100%' : 0,
       opacity: 0,
     },
     visible: {

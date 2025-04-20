@@ -1,3 +1,4 @@
+
 import './menu.scss';
 import { CategoryTab, MealsGrid } from '@/components/ui';
 
@@ -20,7 +21,7 @@ const MenuSection = ({
   const activeCategory = menuCategories[activeTab];
   const filteredMeals = meals.filter((meal) => meal.categoryId === activeCategory.id);
 
-  const { handleSwipe } = useTabScrollNavigation(isActive, activeTab, setActiveTab, goBackToHero);
+  useTabScrollNavigation(isActive, activeTab, setActiveTab, goBackToHero);
 
   return (
     <section className="menu-section">
@@ -31,7 +32,7 @@ const MenuSection = ({
       />
 
       <div className="meal-grid-container">
-        <MealsGrid meals={filteredMeals} activeTab={activeTab} handleSwipe={handleSwipe} />
+        <MealsGrid meals={filteredMeals} activeTab={activeTab} />
       </div>
     </section>
   );

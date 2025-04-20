@@ -2,30 +2,53 @@
 @use '@/styles/mixins' as *;
 
 .social-icons {
-  margin-top: 1.2rem;
   display: flex;
-  gap: 2.5rem;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  gap: 0.5rem;
 
-  a {
-    font-size: 1.5rem;
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &.sm a {
+    font-size: 1rem;
+    gap: 0.3rem;
+  }
+
+  &.md a {
+    font-size: 1.4rem;
+    gap: 0.5rem;
+  }
+
+  &.lg a {
+    font-size: 1.8rem;
+    gap: 0.7rem;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
     color: $primary-color;
-    @include transition(transform);
+    transition: all 0.3s ease;
 
     &:hover {
-      transform: scale(1.15);
+      transform: scale(1.03);
       color: lighten($primary-color, 10%);
     }
-  }
-}
 
-@media (max-width: 776px) {
-  .social-icons {
-    gap: 0.8rem;
-    margin-top: 0.8rem;
-
-    a {
-      font-size: 1.3rem;
+    .label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-left: 0.4rem;
+      color: white;
     }
   }
 }

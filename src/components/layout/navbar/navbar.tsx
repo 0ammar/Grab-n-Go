@@ -1,12 +1,13 @@
 import './navbar.scss';
 import { useState, useRef, useEffect } from 'react';
 import { FaBars, FaTimes, FaShoppingCart, FaUser } from 'react-icons/fa';
-import { FiFacebook, FiInstagram, FiYoutube, FiMessageCircle, FiGlobe } from 'react-icons/fi';
-import { SiTiktok } from 'react-icons/si';
+import { FiGlobe } from 'react-icons/fi';
 
 import enFlag from '@/assets/images/english.png';
 import arFlag from '@/assets/images/arabic.png';
 import frFlag from '@/assets/images/french.png';
+
+import {SocialLinks} from '@/components/ui';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,15 +16,15 @@ const Navbar = () => {
   const langMenuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
-    setMenuOpen(prev => {
-      if (!prev) setLangOpen(false); // اغلق منيو اللغة إذا فتحت منيو السوشال
+    setMenuOpen((prev) => {
+      if (!prev) setLangOpen(false);
       return !prev;
     });
   };
 
   const toggleLang = () => {
-    setLangOpen(prev => {
-      if (!prev) setMenuOpen(false); // اغلق منيو السوشال إذا فتحت منيو اللغة
+    setLangOpen((prev) => {
+      if (!prev) setMenuOpen(false);
       return !prev;
     });
   };
@@ -43,14 +44,6 @@ const Navbar = () => {
     }
   }, [langOpen]);
 
-  const socialLinks = [
-    { icon: <FiFacebook />, label: 'Facebook' },
-    { icon: <FiInstagram />, label: 'Instagram' },
-    { icon: <SiTiktok />, label: 'TikTok' },
-    { icon: <FiYoutube />, label: 'YouTube' },
-    { icon: <FiMessageCircle />, label: 'WhatsApp' },
-  ];
-
   const languageOptions = [
     { code: 'EN', label: 'English', img: enFlag },
     { code: 'AR', label: 'العربية', img: arFlag },
@@ -65,27 +58,39 @@ const Navbar = () => {
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
 
-          <div ref={globeRef} className="lang-icon mobile-only" title="Change Language" onClick={toggleLang}>
+          <div
+            ref={globeRef}
+            className="lang-icon mobile-only"
+            title="Change Language"
+            onClick={toggleLang}
+          >
             <FiGlobe />
           </div>
 
-          <span className="label hide-on-mobile" onClick={toggleMenu}>Social Media</span>
+          <span className="label hide-on-mobile" onClick={toggleMenu}>
+            Social Media
+          </span>
 
           <div className={`social-menu ${menuOpen ? 'open' : ''}`}>
-            {socialLinks.map(({ icon, label }) => (
-              <a href="#" key={label} className="icon" data-label={label} title={label}>
-                {icon}
-              </a>
-            ))}
+            <SocialLinks direction="column" size="sm" withLabels />
           </div>
         </div>
 
         <div className="nav-icons">
-          <div ref={globeRef} className="circle-icon hide-on-mobile" title="Change Language" onClick={toggleLang}>
+          <div
+            ref={globeRef}
+            className="circle-icon hide-on-mobile"
+            title="Change Language"
+            onClick={toggleLang}
+          >
             <FiGlobe />
           </div>
-          <div className="circle-icon" title="Cart"><FaShoppingCart /></div>
-          <div className="circle-icon" title="Your Profile"><FaUser /></div>
+          <div className="circle-icon" title="Cart">
+            <FaShoppingCart />
+          </div>
+          <div className="circle-icon" title="Your Profile">
+            <FaUser />
+          </div>
         </div>
       </nav>
 
@@ -100,10 +105,13 @@ const Navbar = () => {
       )}
 
       {(menuOpen || langOpen) && (
-        <div className="close-area" onClick={() => {
-          setMenuOpen(false);
-          setLangOpen(false);
-        }} />
+        <div
+          className="close-area"
+          onClick={() => {
+            setMenuOpen(false);
+            setLangOpen(false);
+          }}
+        />
       )}
     </>
   );

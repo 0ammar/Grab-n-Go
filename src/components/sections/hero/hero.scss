@@ -20,8 +20,7 @@
   }
 
   .hero-logo-floating {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     display: flex;
     justify-content: center;
 
@@ -37,11 +36,10 @@
 
   .hero-content-wrapper {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
     gap: 5rem;
     width: 100%;
+    align-items: center;
+    justify-content: center;
 
     @media (max-width: 768px) {
       flex-direction: column-reverse;
@@ -62,8 +60,7 @@
       font-weight: bold;
       color: $primary-color;
       text-shadow: $text-shadow;
-      margin-bottom: 0.6rem;
-      margin-top: 0;
+      margin: 0 0 0.6rem;
     }
 
     .hero-description {
@@ -71,7 +68,6 @@
       line-height: 1.6;
       letter-spacing: 1.5px;
       margin-bottom: 1rem;
-      color: $text-color;
 
       @media (max-width: 1024px) {
         font-size: 0.9rem;

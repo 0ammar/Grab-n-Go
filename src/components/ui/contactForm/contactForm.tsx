@@ -18,7 +18,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form className="contact-form" onSubmit={handleSubmit} autoComplete="off">
         <label htmlFor="name">Name</label>
         <input id="name" type="text" placeholder="Your Name" required />
         <label htmlFor="message">Message</label>

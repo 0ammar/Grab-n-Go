@@ -42,22 +42,6 @@
   text-align: center;
   @include transition();
 
-  &:hover {
-    border-color: $primary-color;
-    color: $primary-color;
-  }
-
-  &.active {
-    background-color: $primary-color;
-    color: #000;
-    border-color: $primary-color;
-
-    &::before {
-      background-color: black;
-      box-shadow: none;
-    }
-  }
-
   &::before {
     content: '';
     position: absolute;
@@ -76,20 +60,35 @@
     display: none;
   }
 
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  &.active {
+    background-color: $primary-color;
+    color: #000;
+    border-color: $primary-color;
+
+    &::before {
+      background-color: black;
+      box-shadow: none;
+    }
+  }
+
   @media (max-width: 768px) {
     font-size: 0.68rem;
-    padding: 0.3rem 0.3rem 0.3rem .8rem;
+    padding: 0.3rem 0.3rem 0.3rem 0.8rem;
 
     &::before {
       width: 2px;
       height: 16px;
-      left: 0.5rem;
     }
   }
 
   @media (max-width: 480px) {
     font-size: 0.65rem;
-    padding: 0.3rem 0.4rem 0.3rem .9rem;
+    padding: 0.3rem 0.4rem 0.3rem 0.9rem;
 
     &::before {
       width: 1px;

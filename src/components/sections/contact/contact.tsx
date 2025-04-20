@@ -1,15 +1,9 @@
 import './contact.scss';
 import { motion } from 'framer-motion';
-import {
-  FiFacebook,
-  FiInstagram,
-  FiYoutube,
-  FiMessageCircle,
-} from 'react-icons/fi';
+import { FiFacebook, FiInstagram, FiYoutube, FiMessageCircle } from 'react-icons/fi';
 import { SiTiktok } from 'react-icons/si';
 import { FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
-import {SectionTitle} from '@/components/ui/';
-import {ContactForm} from '@/components/ui/';
+import { SectionTitle, ContactForm } from '@/components/ui';
 
 const Contact = () => {
   return (
@@ -22,7 +16,7 @@ const Contact = () => {
       <SectionTitle text="Where You Can Find Us" />
 
       <div className="contact-wrapper">
-        {/* Left: Map */}
+        {/* Map */}
         <motion.div
           className="contact-left"
           initial={{ scale: 0.95, opacity: 0 }}
@@ -37,7 +31,7 @@ const Contact = () => {
           />
         </motion.div>
 
-        {/* Right: Form + Info */}
+        {/* Form + Info */}
         <motion.div
           className="contact-right"
           initial={{ y: 30, opacity: 0 }}
@@ -47,11 +41,9 @@ const Contact = () => {
           <ContactForm />
 
           <div className="social-icons">
-            <a href="#"><FiFacebook /></a>
-            <a href="#"><FiInstagram /></a>
-            <a href="#"><SiTiktok /></a>
-            <a href="#"><FiYoutube /></a>
-            <a href="#"><FiMessageCircle /></a>
+            {[FiFacebook, FiInstagram, SiTiktok, FiYoutube, FiMessageCircle].map((Icon, idx) => (
+              <a key={idx} href="#"><Icon /></a>
+            ))}
           </div>
 
           <div className="contact-info">

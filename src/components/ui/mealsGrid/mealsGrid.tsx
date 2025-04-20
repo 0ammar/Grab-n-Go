@@ -1,26 +1,20 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MealCard } from '@/components/ui';
 import { MealsGridProps } from '@/types';
 
-const MealsGrid = ({ meals, activeTab, handleSwipe }: MealsGridProps) => {
+const MealsGrid = ({ meals, activeTab }: MealsGridProps) => {
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={activeTab}
-        className="meals-grid"
-        initial={{ x: '100%', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: '-100%', opacity: 0 }}
-        transition={{ duration: 0.6 }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        onDragEnd={handleSwipe}
-      >
-        {meals.map((meal) => (
-          <MealCard key={meal.id} meal={meal} />
-        ))}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      key={activeTab}
+      className="meals-grid"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.75 }}
+    >
+      {meals.map((meal) => (
+        <MealCard key={meal.id} meal={meal} />
+      ))}
+    </motion.div>
   );
 };
 

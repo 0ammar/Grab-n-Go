@@ -23,8 +23,8 @@ export interface MealCardProps {
 export interface MealsGridProps {
   meals: Meal[];
   activeTab: number;
-  handleSwipe: (e: any, info: { offset: { x: number } }) => void;
 }
+
 
 // 🔘 تبويب التصنيفات (CategoryTab)
 export interface CategoryTapProps {

@@ -10,19 +10,19 @@ interface HeroProps {
 
 const Hero = ({ onScrollToMenu }: HeroProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
+
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   const [showLogoAnimation, setShowLogoAnimation] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLogoAnimation(false);
-    }, 6000); // duration of the animation
+    const timer = setTimeout(() => setShowLogoAnimation(false), 6000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -54,9 +54,10 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
           >
             <h1 className="hero-title">Grab'n Go</h1>
             <p className="hero-description">
-              Delicious golden chicken, crispy fries, <br />
-              and fast delivery to satisfy your cravings.
+            Grab it hot. Grab it fresh.<br />
+            That’s the Grab’n Go way
             </p>
+
             <button className="hero-button" onClick={onScrollToMenu}>
               Explore Menu
             </button>

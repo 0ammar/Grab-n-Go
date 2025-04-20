@@ -1,7 +1,11 @@
 import './about.scss';
 import { motion } from 'framer-motion';
 import { SectionTitle } from '@/components/ui';
-import { GiChickenOven, GiFrenchFries, GiTakeMyMoney } from 'react-icons/gi';
+import {
+  GiChickenOven,
+  GiFrenchFries,
+  GiTakeMyMoney,
+} from 'react-icons/gi';
 import { MdDeliveryDining } from 'react-icons/md';
 import { FaRegSmile } from 'react-icons/fa';
 import logo from '@/assets/images/logo.png';
@@ -46,16 +50,16 @@ const About = () => {
         </motion.p>
 
         <motion.div className="about-icons" initial="hidden" animate="visible">
-          {icons.map((item, i) => (
+          {icons.map(({ icon, label }, index) => (
             <motion.div
               className="icon-card"
-              key={i}
+              key={label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 + i * 0.2, duration: 0.6 }}
+              transition={{ delay: 1 + index * 0.2, duration: 0.6 }}
             >
-              {item.icon}
-              <span>{item.label}</span>
+              {icon}
+              <span>{label}</span>
             </motion.div>
           ))}
         </motion.div>

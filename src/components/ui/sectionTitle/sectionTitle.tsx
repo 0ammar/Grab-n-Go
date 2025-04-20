@@ -9,7 +9,7 @@ const SectionTitle = ({ text, className = '' }: SectionTitleProps) => {
   return (
     <div className={`section-title-wrapper ${className}`}>
       <span className="line" />
-      <h1 className="section-title">{text}</h1>
+      <h2 className="section-title">{text}</h2>
       <span className="line" />
     </div>
   );
