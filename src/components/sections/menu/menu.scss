@@ -56,6 +56,50 @@
       display: block;
     }
   }
+
+  .section-arrows {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      position: absolute;
+      top: 20%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 20;
+    }
+
+    .arrow-button {
+      background: rgba(255, 215, 0, 0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+      pointer-events: all;
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
+      position: absolute;
+
+      &:hover {
+        transform: scale(1.08);
+      }
+
+      &.left {
+        left: -12px;
+      }
+
+      &.right {
+        right: -12px;
+      }
+    }
+  }
 }
 
 @keyframes bounce {
@@ -64,5 +108,17 @@
   }
   50% {
     transform: translateY(6px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 215, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
   }
 }

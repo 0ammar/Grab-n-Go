@@ -1,4 +1,3 @@
-// ✅ App.tsx (Final after smart swipe logic)
 import { useRef } from 'react';
 import './styles/global.scss';
 
@@ -23,6 +22,7 @@ export default function App() {
     setActiveSection,
     activeTab,
     setActiveTab,
+    scrollToSection, 
   } = usePageScrollManager(sectionCount, menuSectionIndex, tabCount);
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -89,6 +89,7 @@ export default function App() {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 goBackToHero={() => setActiveSection(0)}
+                goToSection={scrollToSection}
               />
             </motion.section>
           )}
