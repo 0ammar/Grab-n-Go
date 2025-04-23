@@ -1,11 +1,9 @@
-// ✅ useSwipeNavigation.ts (with smart swipe cancel)
 import { useRef } from 'react';
 
 type SwipeConfig = {
   activeSection: number;
   setActiveSection: (section: number) => void;
   activeTab: number;
-  setActiveTab: (tab: number) => void;
   sectionCount: number;
   menuSectionIndex: number;
   tabCount: number;
