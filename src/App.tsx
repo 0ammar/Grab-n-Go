@@ -37,6 +37,7 @@ export default function App() {
     activeSection,
     setActiveSection,
     activeTab,
+    setActiveTab,
     sectionCount,
     menuSectionIndex,
     tabCount,

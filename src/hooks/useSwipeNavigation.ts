@@ -1,10 +1,11 @@
-// ✅ useSwipeNavigation.ts (Fixed version)
+// ✅ useSwipeNavigation.ts (Debug Version)
 import { useRef } from 'react';
 
 type SwipeConfig = {
   activeSection: number;
   setActiveSection: (section: number) => void;
   activeTab: number;
+  setActiveTab: (tab: number) => void;
   sectionCount: number;
   menuSectionIndex: number;
   tabCount: number;
@@ -14,6 +15,7 @@ export const useSwipeNavigation = ({
   activeSection,
   setActiveSection,
   activeTab,
+  setActiveTab,
   sectionCount,
   menuSectionIndex,
   tabCount,
@@ -46,20 +48,33 @@ export const useSwipeNavigation = ({
     isSwiping.current = true;
     const forward = diff > 0;
 
+    console.log('👉 SWIPE DETECTED');
+    console.log('➡️ Direction:', forward ? 'Right → Left (Forward)' : 'Left → Right (Back)');
+    console.log('🧭 activeSection:', activeSection);
+    console.log('📦 activeTab:', activeTab);
+    console.log('🔢 tabCount:', tabCount);
+    console.log('📌 menuSectionIndex:', menuSectionIndex);
+
     if (activeSection === menuSectionIndex) {
       const atFirstTab = activeTab === 0;
       const atLastTab = activeTab === tabCount - 1;
 
       if (forward && atLastTab) {
-        setActiveSection(menuSectionIndex + 1); // ➡️ إلى About
+        console.log('✅ Move to About Section (menu → about)');
+        setActiveSection(menuSectionIndex + 1);
       } else if (!forward && atFirstTab) {
-        setActiveSection(menuSectionIndex - 1); // ⬅️ إلى Hero
+        console.log('✅ Move to Hero Section (menu → hero)');
+        setActiveSection(menuSectionIndex - 1);
+      } else {
+        console.log('🚫 No section change. Swipe in middle tab.');
       }
-      // ❌ لا تغيّر التاب نفسه
     } else {
       const next = forward ? activeSection + 1 : activeSection - 1;
       if (next >= 0 && next < sectionCount) {
+        console.log('✅ Move to section:', next);
         setActiveSection(next);
+      } else {
+        console.log('🚫 Out of bounds swipe.');
       }
     }
 
