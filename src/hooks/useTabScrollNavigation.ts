@@ -8,6 +8,7 @@ export const useTabScrollNavigation = (
   goBack: () => void
 ) => {
   const isSwiping = useRef(false);
+  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
 
   const goToNextTab = () => {
     if (activeTab < menuCategories.length - 1) {
@@ -24,7 +25,7 @@ export const useTabScrollNavigation = (
   };
 
   const handleSwipe = (_e: any, info: { offset: { x: number } }) => {
-    if (isSwiping.current) return;
+    if (isSwiping.current || isTouchDevice) return;
     const swipeX = info.offset.x;
 
     if (swipeX < -180) {
@@ -37,11 +38,11 @@ export const useTabScrollNavigation = (
 
     setTimeout(() => {
       isSwiping.current = false;
-    }, 800); 
+    }, 800);
   };
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive || isTouchDevice) return;
 
     let timeout: NodeJS.Timeout;
     const handleWheel = (e: WheelEvent) => {
