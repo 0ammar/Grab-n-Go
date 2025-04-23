@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
+// ✅ useScrollProgress.ts (Refactored)
+import { useEffect, useRef } from 'react';
 
 export const useScrollProgress = () => {
+  const leftLineRef = useRef<HTMLElement | null>(null);
+  const rightLineRef = useRef<HTMLElement | null>(null);
+  const trackRef = useRef<HTMLElement | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isScrollingRef = useRef(false);
+
   useEffect(() => {
-    const leftLine = document.querySelector<HTMLElement>('.scroll-line.left');
-    const rightLine = document.querySelector<HTMLElement>('.scroll-line.right');
-    const track = document.querySelector<HTMLElement>('.scroll-track');
+    leftLineRef.current = document.querySelector('.scroll-line.left');
+    rightLineRef.current = document.querySelector('.scroll-line.right');
+    trackRef.current = document.querySelector('.scroll-track');
 
-    if (!leftLine || !rightLine || !track) return;
-
-    let isScrolling = false;
-    let timeout: NodeJS.Timeout;
+    if (!leftLineRef.current || !rightLineRef.current || !trackRef.current) return;
 
     const updateProgress = () => {
       const scrollTop = window.scrollY;
@@ -17,24 +21,27 @@ export const useScrollProgress = () => {
       const progress = (scrollTop / docHeight) * 100;
       const half = Math.min(progress / 2, 50);
 
-      leftLine.style.animation = rightLine.style.animation = 'none';
-      leftLine.style.width = rightLine.style.width = `${half}%`;
+      leftLineRef.current!.style.animation = rightLineRef.current!.style.animation = 'none';
+      leftLineRef.current!.style.width = rightLineRef.current!.style.width = `${half}%`;
 
-      if (!isScrolling) {
-        isScrolling = true;
-        track.classList.add('scrolling');
+      if (!isScrollingRef.current) {
+        isScrollingRef.current = true;
+        trackRef.current!.classList.add('scrolling');
       }
 
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        leftLine.style.animation = rightLine.style.animation =
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        leftLineRef.current!.style.animation = rightLineRef.current!.style.animation =
           'fillDrain 8s ease-in-out infinite';
-        track.classList.remove('scrolling');
-        isScrolling = false;
+        trackRef.current!.classList.remove('scrolling');
+        isScrollingRef.current = false;
       }, 1000);
     };
 
     window.addEventListener('scroll', updateProgress);
-    return () => window.removeEventListener('scroll', updateProgress);
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 };

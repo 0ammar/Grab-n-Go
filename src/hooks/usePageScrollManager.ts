@@ -1,4 +1,4 @@
-// ✅ usePageScrollManager.ts
+// ✅ usePageScrollManager.ts (Refactored)
 import { useRef, useState, useCallback, useEffect } from 'react';
 
 export const usePageScrollManager = (
@@ -6,10 +6,11 @@ export const usePageScrollManager = (
   menuSectionIndex: number,
   tabCount: number
 ) => {
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>(Array(totalSections).fill(null));
   const [activeSection, setActiveSection] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
   const isScrolling = useRef(false);
+  const scrollDelay = 900;
 
   const scrollToSection = (index: number) => {
     if (index >= 0 && index < totalSections) {
@@ -18,29 +19,36 @@ export const usePageScrollManager = (
     }
   };
 
+  const scrollForward = () => {
+    if (activeSection === menuSectionIndex && activeTab === tabCount - 1) {
+      scrollToSection(menuSectionIndex + 1);
+    } else if (activeSection < totalSections - 1) {
+      scrollToSection(activeSection + 1);
+    }
+  };
+
+  const scrollBackward = () => {
+    if (activeSection === menuSectionIndex && activeTab === 0) {
+      scrollToSection(menuSectionIndex - 1);
+    } else if (activeSection > 0) {
+      scrollToSection(activeSection - 1);
+    }
+  };
+
   const handleGlobalScroll = useCallback(
     (e: WheelEvent) => {
       if (isScrolling.current) return;
       isScrolling.current = true;
-      const delay = 900;
 
-      if (activeSection === menuSectionIndex) {
-        if (e.deltaY > 0 && activeTab === tabCount - 1) {
-          scrollToSection(menuSectionIndex + 1);
-        } else if (e.deltaY < 0 && activeTab === 0) {
-          scrollToSection(menuSectionIndex - 1);
-        }
+      if (e.deltaY > 0) {
+        scrollForward();
       } else {
-        if (e.deltaY > 0 && activeSection < totalSections - 1) {
-          scrollToSection(activeSection + 1);
-        } else if (e.deltaY < 0 && activeSection > 0) {
-          scrollToSection(activeSection - 1);
-        }
+        scrollBackward();
       }
 
       setTimeout(() => {
         isScrolling.current = false;
-      }, delay);
+      }, scrollDelay);
     },
     [activeSection, activeTab, tabCount, totalSections, menuSectionIndex]
   );
@@ -67,6 +75,3 @@ export const usePageScrollManager = (
     handleGlobalScroll,
   };
 };
-
-
-//

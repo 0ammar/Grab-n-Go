@@ -1,10 +1,10 @@
+// ✅ useSwipeNavigation.ts (Final Version)
 import { useRef } from 'react';
 
 type SwipeConfig = {
   activeSection: number;
   setActiveSection: (section: number) => void;
   activeTab: number;
-  setActiveTab: (tab: number) => void;
   sectionCount: number;
   menuSectionIndex: number;
   tabCount: number;
@@ -24,7 +24,6 @@ export const useSwipeNavigation = ({
   const isSwiping = useRef(false);
   const startTarget = useRef<EventTarget | null>(null);
 
-
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     startTime.current = Date.now();
@@ -40,25 +39,28 @@ export const useSwipeNavigation = ({
     const timeDiff = Date.now() - startTime.current;
     const threshold = 100;
 
-    // ✅ تجاهل السواب إذا كانت كبسة على زر (مثل التاب)
+    // تجاهل إذا المستخدم كبس على زر (مثل تاب)
     const el = startTarget.current as HTMLElement | null;
     if (el && (el.tagName === 'BUTTON' || el.closest('button'))) return;
 
-    // ✅ تجاهل الحركة إذا كانت بطيئة أو قصيرة = كبسة عادية مش سوايب
     if (isSwiping.current || Math.abs(diff) < threshold || timeDiff > 300) return;
     isSwiping.current = true;
 
     const forward = diff > 0;
 
-    // ✅ التنقل بين السكشنات فقط، ممنوع تغيير التابات بالسواب (سواء كمبيوتر أو موبايل)
+    // ✅ التنقل بين كل السكشنات باستخدام Swipe
     if (activeSection === menuSectionIndex) {
-      if (forward && activeTab === tabCount - 1) {
+      // داخل MenuSection: فقط تنقل سكشن إذا على أول أو آخر تاب
+      const atFirstTab = activeTab === 0;
+      const atLastTab = activeTab === tabCount - 1;
+
+      if (forward && atLastTab) {
         setActiveSection(menuSectionIndex + 1);
-      } else if (!forward && activeTab === 0) {
+      } else if (!forward && atFirstTab) {
         setActiveSection(menuSectionIndex - 1);
       }
-      // ❌ ممنوع تغيير التابات بسواب
     } else {
+      // باقي السكشنات: حرّك عادي
       const next = forward ? activeSection + 1 : activeSection - 1;
       if (next >= 0 && next < sectionCount) {
         setActiveSection(next);

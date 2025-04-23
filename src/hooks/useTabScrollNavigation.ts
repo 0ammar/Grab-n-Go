@@ -1,3 +1,4 @@
+// ✅ useTabScrollNavigation.ts (Refactored)
 import { useEffect, useRef } from 'react';
 import { menuCategories } from '@/data/menuData';
 
@@ -25,13 +26,15 @@ export const useTabScrollNavigation = (
   };
 
   const handleSwipe = (_e: any, info: { offset: { x: number } }) => {
-    if (isSwiping.current || isTouchDevice) return;
-    const swipeX = info.offset.x;
+    if (isTouchDevice || isSwiping.current) return;
 
-    if (swipeX < -180) {
+    const swipeX = info.offset.x;
+    const threshold = 180;
+
+    if (swipeX < -threshold) {
       isSwiping.current = true;
       goToNextTab();
-    } else if (swipeX > 180) {
+    } else if (swipeX > threshold) {
       isSwiping.current = true;
       goToPreviousTab();
     }
