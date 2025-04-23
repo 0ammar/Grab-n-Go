@@ -23,6 +23,9 @@ export const useSwipeNavigation = ({
   const touchEndX = useRef(0);
   const isSwiping = useRef(false);
 
+  // ✅ نتحقق إذا الجهاز يدعم اللمس (موبايل أو تابلت)
+  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
+
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -40,9 +43,13 @@ export const useSwipeNavigation = ({
     const forward = diff > 0;
 
     if (activeSection === menuSectionIndex) {
-      if (forward && activeTab < tabCount - 1) setActiveTab(activeTab + 1);
-      else if (!forward && activeTab > 0) setActiveTab(activeTab - 1);
-      else setActiveSection(forward ? menuSectionIndex + 1 : menuSectionIndex - 1);
+      if (!isTouchDevice) {
+        if (forward && activeTab < tabCount - 1) setActiveTab(activeTab + 1);
+        else if (!forward && activeTab > 0) setActiveTab(activeTab - 1);
+        else setActiveSection(forward ? menuSectionIndex + 1 : menuSectionIndex - 1);
+      } else {
+        setActiveSection(forward ? menuSectionIndex + 1 : menuSectionIndex - 1);
+      }
     } else {
       const next = forward ? activeSection + 1 : activeSection - 1;
       if (next >= 0 && next < sectionCount) setActiveSection(next);
