@@ -1,4 +1,3 @@
-// ✅ useTabScrollNavigation.ts (Refactored)
 import { useEffect, useRef } from 'react';
 import { menuCategories } from '@/data/menuData';
 

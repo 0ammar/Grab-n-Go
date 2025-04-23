@@ -1,14 +1,11 @@
+// ✅ App.tsx (Final after smart swipe logic)
 import { useRef } from 'react';
 import './styles/global.scss';
 
 import { Navbar, ScrollHint } from './components/layout';
 import { Hero, MenuSection, About, Conatct } from './components/sections';
 
-import {
-  usePageScrollManager,
-  useScrollProgress,
-  useSwipeNavigation,
-} from './hooks';
+import { usePageScrollManager, useScrollProgress, useSwipeNavigation } from './hooks';
 import { menuCategories } from './data/menuData';
 
 import { AnimatePresence, motion } from 'framer-motion';
@@ -39,7 +36,11 @@ export default function App() {
   } = useSwipeNavigation({
     activeSection,
     setActiveSection,
+    activeTab,
+    setActiveTab,
     sectionCount,
+    menuSectionIndex,
+    tabCount,
   });
 
   return (

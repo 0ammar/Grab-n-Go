@@ -1,4 +1,3 @@
-// ✅ usePageScrollManager.ts (Refactored)
 import { useRef, useState, useCallback, useEffect } from 'react';
 
 export const usePageScrollManager = (
