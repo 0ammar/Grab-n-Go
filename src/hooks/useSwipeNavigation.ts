@@ -15,7 +15,6 @@ export const useSwipeNavigation = ({
   activeSection,
   setActiveSection,
   activeTab,
-  setActiveTab,
   sectionCount,
   menuSectionIndex,
   tabCount,
