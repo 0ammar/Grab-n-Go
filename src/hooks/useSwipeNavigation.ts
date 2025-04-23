@@ -1,4 +1,4 @@
-// ✅ useSwipeNavigation.ts (Final Version)
+// ✅ useSwipeNavigation.ts (Fixed version)
 import { useRef } from 'react';
 
 type SwipeConfig = {
@@ -39,28 +39,24 @@ export const useSwipeNavigation = ({
     const timeDiff = Date.now() - startTime.current;
     const threshold = 100;
 
-    // تجاهل إذا المستخدم كبس على زر (مثل تاب)
     const el = startTarget.current as HTMLElement | null;
     if (el && (el.tagName === 'BUTTON' || el.closest('button'))) return;
-
     if (isSwiping.current || Math.abs(diff) < threshold || timeDiff > 300) return;
-    isSwiping.current = true;
 
+    isSwiping.current = true;
     const forward = diff > 0;
 
-    // ✅ التنقل بين كل السكشنات باستخدام Swipe
     if (activeSection === menuSectionIndex) {
-      // داخل MenuSection: فقط تنقل سكشن إذا على أول أو آخر تاب
       const atFirstTab = activeTab === 0;
       const atLastTab = activeTab === tabCount - 1;
 
       if (forward && atLastTab) {
-        setActiveSection(menuSectionIndex + 1);
+        setActiveSection(menuSectionIndex + 1); // ➡️ إلى About
       } else if (!forward && atFirstTab) {
-        setActiveSection(menuSectionIndex - 1);
+        setActiveSection(menuSectionIndex - 1); // ⬅️ إلى Hero
       }
+      // ❌ لا تغيّر التاب نفسه
     } else {
-      // باقي السكشنات: حرّك عادي
       const next = forward ? activeSection + 1 : activeSection - 1;
       if (next >= 0 && next < sectionCount) {
         setActiveSection(next);
