@@ -53,6 +53,8 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
             transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
           >
             <h1 className="hero-title">Grab'n Go</h1>
+            <div className="hero-divider" />
+
             <p className="hero-description">
             Grab it hot. Grab it fresh.<br />
             That’s the Grab’n Go way
@@ -76,6 +78,7 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           />
+
         </div>
       </div>
     </motion.section>

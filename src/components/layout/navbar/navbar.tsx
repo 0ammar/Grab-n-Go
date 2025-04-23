@@ -39,7 +39,7 @@ const Navbar = () => {
         : `${globeRect.bottom + 6}px`;
 
       langMenuRef.current.style.left = isMobile
-        ? `${globeRect.left + 50}px`
+        ? `${globeRect.left + 45}px`
         : `${globeRect.left}px`;
     }
   }, [langOpen]);
