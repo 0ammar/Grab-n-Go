@@ -14,7 +14,6 @@ export const useSwipeNavigation = ({
   activeSection,
   setActiveSection,
   activeTab,
-  setActiveTab,
   sectionCount,
   menuSectionIndex,
   tabCount,
@@ -23,12 +22,13 @@ export const useSwipeNavigation = ({
   const touchEndX = useRef(0);
   const startTime = useRef(0);
   const isSwiping = useRef(false);
+  const startTarget = useRef<EventTarget | null>(null);
 
-  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     startTime.current = Date.now();
+    startTarget.current = e.target;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -40,34 +40,29 @@ export const useSwipeNavigation = ({
     const timeDiff = Date.now() - startTime.current;
     const threshold = 100;
 
-    // ❌ تجاهل التمرير البسيط أو النقرات البطيئة
+    // ✅ تجاهل السواب إذا كانت كبسة على زر (مثل التاب)
+    const el = startTarget.current as HTMLElement | null;
+    if (el && (el.tagName === 'BUTTON' || el.closest('button'))) return;
+
+    // ✅ تجاهل الحركة إذا كانت بطيئة أو قصيرة = كبسة عادية مش سوايب
     if (isSwiping.current || Math.abs(diff) < threshold || timeDiff > 300) return;
     isSwiping.current = true;
 
     const forward = diff > 0;
 
+    // ✅ التنقل بين السكشنات فقط، ممنوع تغيير التابات بالسواب (سواء كمبيوتر أو موبايل)
     if (activeSection === menuSectionIndex) {
-      if (!isTouchDevice) {
-        // 💻 كمبيوتر: نسمح بالتنقل بين التابات
-        if (forward && activeTab < tabCount - 1) setActiveTab(activeTab + 1);
-        else if (!forward && activeTab > 0) setActiveTab(activeTab - 1);
-        else setActiveSection(forward ? menuSectionIndex + 1 : menuSectionIndex - 1);
-      } else {
-        // 📱 موبايل: نسمح بالتنقل بين السكشنز فقط عند Swipe حقيقي من أول أو آخر تاب
-        const atFirstTab = activeTab === 0;
-        const atLastTab = activeTab === tabCount - 1;
-
-        if (forward && atLastTab) {
-          setActiveSection(menuSectionIndex + 1);
-        } else if (!forward && atFirstTab) {
-          setActiveSection(menuSectionIndex - 1);
-        }
-        // وإلا: تجاهل السواب الجانبي
+      if (forward && activeTab === tabCount - 1) {
+        setActiveSection(menuSectionIndex + 1);
+      } else if (!forward && activeTab === 0) {
+        setActiveSection(menuSectionIndex - 1);
       }
+      // ❌ ممنوع تغيير التابات بسواب
     } else {
-      // خارج MenuSection → مسموح التنقل بين السكشنز بالسواب العمودي
       const next = forward ? activeSection + 1 : activeSection - 1;
-      if (next >= 0 && next < sectionCount) setActiveSection(next);
+      if (next >= 0 && next < sectionCount) {
+        setActiveSection(next);
+      }
     }
 
     setTimeout(() => {
