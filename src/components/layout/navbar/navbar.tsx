@@ -1,13 +1,15 @@
 import './navbar.scss';
 import { useState, useRef, useEffect } from 'react';
-import { FaBars, FaTimes, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
+import { Menu, X, ShoppingCart, User } from 'lucide-react';
+
 import { FiGlobe } from 'react-icons/fi';
 
 import enFlag from '@/assets/images/english.png';
 import arFlag from '@/assets/images/arabic.png';
 import frFlag from '@/assets/images/french.png';
 
-import {SocialLinks} from '@/components/ui';
+import { SocialLinks } from '@/components/ui';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,7 +57,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="social-section">
           <button className="menu-toggle" onClick={toggleMenu}>
-            {menuOpen ? <FaTimes /> : <FaBars />}
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
           <div
@@ -86,11 +88,12 @@ const Navbar = () => {
             <FiGlobe />
           </div>
           <div className="circle-icon" title="Cart">
-            <FaShoppingCart />
+            <ShoppingCart size={20} />
           </div>
           <div className="circle-icon" title="Your Profile">
-            <FaUser />
+            <User size={20} />
           </div>
+
         </div>
       </nav>
 
