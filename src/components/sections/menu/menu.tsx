@@ -10,7 +10,7 @@ interface MenuSectionProps {
   goBackToHero: () => void;
   activeTab: number;
   setActiveTab: (index: number) => void;
-  goToSection: (index: number) => void;
+  goToSection: (index: number, force?: boolean) => void;
 }
 
 const MenuSection = ({
@@ -25,7 +25,7 @@ const MenuSection = ({
 
   useTabScrollNavigation(isActive, activeTab, setActiveTab, goBackToHero);
 
-  const handleNextSection = () => goToSection(2); 
+  const handleNextSection = () => goToSection(2, true);
   const handlePreviousSection = () => goBackToHero(); 
 
   return (

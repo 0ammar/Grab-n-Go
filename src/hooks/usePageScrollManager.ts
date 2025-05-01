@@ -14,18 +14,18 @@ export const usePageScrollManager = (
   const isScrolling = useRef(false);
   const scrollDelay = 900;
 
-  const scrollToSection = (index: number) => {
+  const scrollToSection = (index: number, force = false) => {
     const isInMenu = activeSection === menuSectionIndex;
     const tryingToLeaveMenu = index !== menuSectionIndex;
-
-    // ✅ امنع التنقل من Menu على الموبايل
-    if (isMobileScreen() && isInMenu && tryingToLeaveMenu) return;
-
+  
+    if (!force && isMobileScreen() && isInMenu && tryingToLeaveMenu) return;
+  
     if (index >= 0 && index < totalSections) {
       sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(index);
     }
   };
+  
 
   const scrollForward = () => {
     const isAtLastTabInMenu = activeSection === menuSectionIndex && activeTab === tabCount - 1;
@@ -49,7 +49,6 @@ export const usePageScrollManager = (
     (e: WheelEvent) => {
       const isInMenu = activeSection === menuSectionIndex;
 
-      // ✅ امنع Scroll داخل Menu على الموبايل
       if (isMobileScreen() && isInMenu) return;
 
       if (isScrolling.current) return;
