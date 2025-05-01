@@ -1,13 +1,16 @@
-import { useRef } from 'react';
 import './styles/global.scss';
 
 import { Navbar, ScrollHint } from './components/layout';
 import { Hero, MenuSection, About, Conatct } from './components/sections';
+import { AnimatePresence, motion } from 'framer-motion';
 
-import { usePageScrollManager, useScrollProgress, useSwipeNavigation } from './hooks';
+import { usePageScrollManager } from './hooks/usePageScrollManager';
+import { useSwipeNavigation } from './hooks/useSwipeNavigation';
+import { useScrollProgress } from './hooks/useScrollProgress';
 import { menuCategories } from './data/menuData';
 
-import { AnimatePresence, motion } from 'framer-motion';
+const isMobileScreen = () =>
+  typeof window !== 'undefined' && window.innerWidth <= 768;
 
 export default function App() {
   useScrollProgress();
@@ -22,12 +25,8 @@ export default function App() {
     setActiveSection,
     activeTab,
     setActiveTab,
-    scrollToSection, 
+    scrollToSection,
   } = usePageScrollManager(sectionCount, menuSectionIndex, tabCount);
-
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-
-  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
 
   const {
     handleTouchStart,
@@ -37,48 +36,51 @@ export default function App() {
     activeSection,
     setActiveSection,
     activeTab,
-    setActiveTab,
     sectionCount,
     menuSectionIndex,
     tabCount,
   });
 
+  const touchHandlers = isMobileScreen()
+    ? {
+        onTouchStart: handleTouchStart,
+        onTouchMove: handleTouchMove,
+        onTouchEnd: handleTouchEnd,
+      }
+    : {};
+
   return (
     <>
       <Navbar />
-      <main
-        className="scroll-container"
-        ref={scrollContainerRef}
-        {...(isTouchDevice && {
-          onTouchStart: handleTouchStart,
-          onTouchMove: handleTouchMove,
-          onTouchEnd: handleTouchEnd,
-        })}
-      >
+      <main className="scroll-container" {...touchHandlers}>
         <AnimatePresence mode="wait">
+          {/* Hero Section */}
           {activeSection === 0 && (
             <motion.section
               key="hero"
               className="scroll-section"
               ref={(el) => {
-                if (el instanceof HTMLDivElement) sectionRefs.current[0] = el;
+                sectionRefs.current[0] = el as HTMLDivElement | null;
               }}
+              
               initial={{ x: 0, opacity: 1 }}
-              exit={{ x: '-100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '-100%', opacity: 0 }}
               transition={{ duration: 0.7, ease: 'easeInOut' }}
             >
-              <Hero onScrollToMenu={() => setActiveSection(1)} />
+              <Hero onScrollToMenu={() => setActiveSection(menuSectionIndex)} />
             </motion.section>
           )}
 
+          {/* Menu Section */}
           {activeSection === 1 && (
             <motion.section
               key="menu"
               className="scroll-section"
               ref={(el) => {
-                if (el instanceof HTMLDivElement) sectionRefs.current[1] = el;
+                sectionRefs.current[1] = el as HTMLDivElement | null;
               }}
+              
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 0, opacity: 0 }}
@@ -94,13 +96,15 @@ export default function App() {
             </motion.section>
           )}
 
+          {/* About Section */}
           {activeSection === 2 && (
             <motion.section
               key="about"
               className="scroll-section"
               ref={(el) => {
-                if (el instanceof HTMLDivElement) sectionRefs.current[2] = el;
+                sectionRefs.current[2] = el as HTMLDivElement | null;
               }}
+              
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 0, opacity: 0 }}
@@ -110,13 +114,15 @@ export default function App() {
             </motion.section>
           )}
 
+          {/* Contact Section */}
           {activeSection === 3 && (
             <motion.section
               key="contact"
               className="scroll-section"
               ref={(el) => {
-                if (el instanceof HTMLDivElement) sectionRefs.current[3] = el;
+                sectionRefs.current[3] = el as HTMLDivElement | null;
               }}
+              
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 0, opacity: 0 }}

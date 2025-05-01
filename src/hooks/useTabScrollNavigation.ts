@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { menuCategories } from '@/data/menuData';
 
+const isMobileScreen = () =>
+  typeof window !== 'undefined' && window.innerWidth <= 768;
+
 export const useTabScrollNavigation = (
   isActive: boolean,
   activeTab: number,
@@ -8,7 +11,7 @@ export const useTabScrollNavigation = (
   goBack: () => void
 ) => {
   const isSwiping = useRef(false);
-  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const goToNextTab = () => {
     if (activeTab < menuCategories.length - 1) {
@@ -25,7 +28,7 @@ export const useTabScrollNavigation = (
   };
 
   const handleSwipe = (_e: any, info: { offset: { x: number } }) => {
-    if (isTouchDevice || isSwiping.current) return;
+    if (isSwiping.current || isMobileScreen()) return;
 
     const swipeX = info.offset.x;
     const threshold = 180;
@@ -44,20 +47,18 @@ export const useTabScrollNavigation = (
   };
 
   useEffect(() => {
-    if (!isActive || isTouchDevice) return;
-  
-    let timeout: NodeJS.Timeout;
+    if (!isActive || isMobileScreen()) return;
+
     const handleWheel = (e: WheelEvent) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
         e.deltaY > 0 ? goToNextTab() : goToPreviousTab();
       }, 100);
     };
-  
+
     window.addEventListener('wheel', handleWheel, { passive: true });
     return () => window.removeEventListener('wheel', handleWheel);
   }, [isActive, activeTab]);
-  
 
   return { goToNextTab, goToPreviousTab, handleSwipe };
 };

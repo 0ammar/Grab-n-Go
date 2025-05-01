@@ -1,5 +1,8 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 
+const isMobileScreen = () =>
+  typeof window !== 'undefined' && window.innerWidth <= 768;
+
 export const usePageScrollManager = (
   totalSections: number,
   menuSectionIndex: number,
@@ -12,6 +15,12 @@ export const usePageScrollManager = (
   const scrollDelay = 900;
 
   const scrollToSection = (index: number) => {
+    const isInMenu = activeSection === menuSectionIndex;
+    const tryingToLeaveMenu = index !== menuSectionIndex;
+
+    // ✅ امنع التنقل من Menu على الموبايل
+    if (isMobileScreen() && isInMenu && tryingToLeaveMenu) return;
+
     if (index >= 0 && index < totalSections) {
       sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(index);
@@ -19,31 +28,34 @@ export const usePageScrollManager = (
   };
 
   const scrollForward = () => {
-    if (activeSection === menuSectionIndex && activeTab === tabCount - 1) {
-      scrollToSection(menuSectionIndex + 1);
-    } else if (activeSection < totalSections - 1) {
+    const isAtLastTabInMenu = activeSection === menuSectionIndex && activeTab === tabCount - 1;
+    if (isAtLastTabInMenu && activeSection < totalSections - 1) {
+      scrollToSection(activeSection + 1);
+    } else if (activeSection !== menuSectionIndex && activeSection < totalSections - 1) {
       scrollToSection(activeSection + 1);
     }
   };
 
   const scrollBackward = () => {
-    if (activeSection === menuSectionIndex && activeTab === 0) {
-      scrollToSection(menuSectionIndex - 1);
-    } else if (activeSection > 0) {
+    const isAtFirstTabInMenu = activeSection === menuSectionIndex && activeTab === 0;
+    if (isAtFirstTabInMenu && activeSection > 0) {
+      scrollToSection(activeSection - 1);
+    } else if (activeSection !== menuSectionIndex && activeSection > 0) {
       scrollToSection(activeSection - 1);
     }
   };
 
   const handleGlobalScroll = useCallback(
     (e: WheelEvent) => {
+      const isInMenu = activeSection === menuSectionIndex;
+
+      // ✅ امنع Scroll داخل Menu على الموبايل
+      if (isMobileScreen() && isInMenu) return;
+
       if (isScrolling.current) return;
       isScrolling.current = true;
 
-      if (e.deltaY > 0) {
-        scrollForward();
-      } else {
-        scrollBackward();
-      }
+      e.deltaY > 0 ? scrollForward() : scrollBackward();
 
       setTimeout(() => {
         isScrolling.current = false;

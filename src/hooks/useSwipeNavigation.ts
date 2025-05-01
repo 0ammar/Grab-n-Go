@@ -4,17 +4,18 @@ type SwipeConfig = {
   activeSection: number;
   setActiveSection: (section: number) => void;
   activeTab: number;
-  setActiveTab: (tab: number) => void;
   sectionCount: number;
   menuSectionIndex: number;
   tabCount: number;
 };
 
+const isMobileScreen = () =>
+  typeof window !== 'undefined' && window.innerWidth <= 768;
+
 export const useSwipeNavigation = ({
   activeSection,
   setActiveSection,
   activeTab,
-  setActiveTab,
   sectionCount,
   menuSectionIndex,
   tabCount,
@@ -23,7 +24,6 @@ export const useSwipeNavigation = ({
   const touchEndX = useRef(0);
   const startTime = useRef(0);
   const isSwiping = useRef(false);
-  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -35,19 +35,24 @@ export const useSwipeNavigation = ({
   };
 
   const handleTouchEnd = () => {
-    const diff = touchStartX.current - touchEndX.current;
-    const timeDiff = Date.now() - startTime.current;
-    const threshold = 50;
-    const maxDuration = 500;
+    const swipeDistance = touchStartX.current - touchEndX.current;
+    const swipeDuration = Date.now() - startTime.current;
+    const swipeThreshold = 50;
+    const maxSwipeTime = 500;
 
-    if (isTouchDevice && activeSection === menuSectionIndex) return;
+    const isSwipeValid =
+      Math.abs(swipeDistance) > swipeThreshold && swipeDuration < maxSwipeTime;
+    if (!isSwipeValid || isSwiping.current) return;
 
-    if (isSwiping.current || Math.abs(diff) < threshold || timeDiff > maxDuration) return;
+    // ✅ امنع السوايب داخل قسم Menu على الموبايل فقط
+    const isMobile = isMobileScreen();
+    const isInMenu = activeSection === menuSectionIndex;
+    if (isMobile && isInMenu) return;
 
     isSwiping.current = true;
-    const forward = diff > 0;
+    const forward = swipeDistance > 0;
 
-    if (activeSection === menuSectionIndex) {
+    if (isInMenu) {
       const atFirstTab = activeTab === 0;
       const atLastTab = activeTab === tabCount - 1;
 
