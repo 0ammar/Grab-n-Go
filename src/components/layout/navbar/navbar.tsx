@@ -1,6 +1,5 @@
 import './navbar.scss';
 import { useState, useRef, useEffect } from 'react';
-import { FaTimes } from 'react-icons/fa';
 import { Menu, X, ShoppingCart, User } from 'lucide-react';
 
 import { FiGlobe } from 'react-icons/fi';
