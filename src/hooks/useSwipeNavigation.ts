@@ -14,6 +14,7 @@ export const useSwipeNavigation = ({
   activeSection,
   setActiveSection,
   activeTab,
+  setActiveTab,
   sectionCount,
   menuSectionIndex,
   tabCount,
@@ -22,6 +23,7 @@ export const useSwipeNavigation = ({
   const touchEndX = useRef(0);
   const startTime = useRef(0);
   const isSwiping = useRef(false);
+  const isTouchDevice = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -35,8 +37,10 @@ export const useSwipeNavigation = ({
   const handleTouchEnd = () => {
     const diff = touchStartX.current - touchEndX.current;
     const timeDiff = Date.now() - startTime.current;
-    const threshold = 50; 
-    const maxDuration = 500; 
+    const threshold = 50;
+    const maxDuration = 500;
+
+    if (isTouchDevice && activeSection === menuSectionIndex) return;
 
     if (isSwiping.current || Math.abs(diff) < threshold || timeDiff > maxDuration) return;
 

@@ -45,7 +45,7 @@ export const useTabScrollNavigation = (
 
   useEffect(() => {
     if (!isActive || isTouchDevice) return;
-
+  
     let timeout: NodeJS.Timeout;
     const handleWheel = (e: WheelEvent) => {
       clearTimeout(timeout);
@@ -53,10 +53,11 @@ export const useTabScrollNavigation = (
         e.deltaY > 0 ? goToNextTab() : goToPreviousTab();
       }, 100);
     };
-
+  
     window.addEventListener('wheel', handleWheel, { passive: true });
     return () => window.removeEventListener('wheel', handleWheel);
   }, [isActive, activeTab]);
+  
 
   return { goToNextTab, goToPreviousTab, handleSwipe };
 };

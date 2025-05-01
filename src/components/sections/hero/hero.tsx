@@ -66,7 +66,7 @@ const Hero = ({ onScrollToMenu }: HeroProps) => {
 
             <div className="swipe-hint">
               <div className="animated-arrow" />
-              <p className="hint-text">Swap to right</p>
+              <p className="hint-text">Swipe to right</p>
             </div>
           </motion.div>
 
